@@ -1,0 +1,169 @@
+{
+	"id": "026127c3-0b9f-4711-bf66-b073f859a04c",
+	"name": "GardenAcademy Project Gp2",
+	"timestamp": "2023-10-10T12:29:58.156Z",
+	"collection_id": "28019510-43527018-de32-4e6f-b501-665352f29cc5",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 12,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2023-10-10T12:29:53.624Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "a8a08cc8-5a13-4ae6-973b-2c6520132ba6",
+			"name": "Endpoint to parse the CSV input",
+			"url": "https://csvdemomockappp.bundlewallet.com/invoice/parse",
+			"time": 987,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Validate that the 'id' field is a non-empty string": true,
+				"The 'companies' object is present in the response": true,
+				"Validate that the 'Google' and 'Facebook' keys are present in the 'companies' object": true,
+				"Values of 'Google' and 'Facebook' are non-negative integers": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate that the 'id' field is a non-empty string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The 'companies' object is present in the response": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate that the 'Google' and 'Facebook' keys are present in the 'companies' object": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Values of 'Google' and 'Facebook' are non-negative integers": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				987
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Validate that the 'id' field is a non-empty string": true,
+					"The 'companies' object is present in the response": true,
+					"Validate that the 'Google' and 'Facebook' keys are present in the 'companies' object": true,
+					"Values of 'Google' and 'Facebook' are non-negative integers": true
+				}
+			]
+		},
+		{
+			"id": "0d2528b5-5884-4601-9cd0-a164a8b55e10",
+			"name": "Get Invoice Parsing Result by ID",
+			"url": "https://csvdemomockappp.bundlewallet.com/invoice/17605f3b-da05-4329-aac0-084b05d02807",
+			"time": 274,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Validate the id field is not empty": true,
+				"Verify that the 'companies' object is present in the response": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate the id field is not empty": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that the 'companies' object is present in the response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				274
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Validate the id field is not empty": true,
+					"Verify that the 'companies' object is present in the response": true
+				}
+			]
+		},
+		{
+			"id": "ad4695fc-0c31-42dc-9728-d02998e12f24",
+			"name": "Get Company details from an Invoice",
+			"url": "https://csvdemomockappp.bundlewallet.com/invoice/17605f3b-da05-4329-aac0-084b05d02807/company?companyName=Google",
+			"time": 308,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Response status code is 200": true,
+				"Response has required fields": true,
+				"Validate that the name is a non-empty string": true,
+				"Verify that the 'lineItems' array is present and contains at least one element": true
+			},
+			"testPassFailCounts": {
+				"Response status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has required fields": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Validate that the name is a non-empty string": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Verify that the 'lineItems' array is present and contains at least one element": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				308
+			],
+			"allTests": [
+				{
+					"Response status code is 200": true,
+					"Response has required fields": true,
+					"Validate that the name is a non-empty string": true,
+					"Verify that the 'lineItems' array is present and contains at least one element": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1569,
+	"collection": {
+		"requests": [
+			{
+				"id": "a8a08cc8-5a13-4ae6-973b-2c6520132ba6",
+				"method": "POST"
+			},
+			{
+				"id": "0d2528b5-5884-4601-9cd0-a164a8b55e10",
+				"method": "GET"
+			},
+			{
+				"id": "ad4695fc-0c31-42dc-9728-d02998e12f24",
+				"method": "GET"
+			}
+		]
+	}
+}
