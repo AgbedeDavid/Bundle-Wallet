@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "43527018-de32-4e6f-b501-665352f29cc5",
+		"name": "BundleWallet_e2eAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28019510",
+		"_collection_link": "https://lunar-rocket-949681.postman.co/workspace/GAQA~eb12bed9-3f23-4f56-8f45-6249e963a35f/collection/28019510-43527018-de32-4e6f-b501-665352f29cc5?action=share&source=collection_link&creator=28019510"
+	},
+	"item": [
+		{
+			"name": "Endpoint to parse the CSV input",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the 'id' field is a non-empty string\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.id).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"The 'companies' object is present in the response\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.companies).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the 'Google' and 'Facebook' keys are present in the 'companies' object\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData.companies).to.exist;",
+							"    pm.expect(responseData.companies).to.have.property('Google');",
+							"    pm.expect(responseData.companies).to.have.property('Facebook');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Values of 'Google' and 'Facebook' are non-negative integers\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.companies).to.exist.and.to.be.an('object');",
+							"    pm.expect(responseData.companies.Google).to.exist.and.to.be.a('number').and.to.be.at.least(0);",
+							"    pm.expect(responseData.companies.Facebook).to.exist.and.to.be.a('number').and.to.be.at.least(0);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"payload\": \"RW1wbG95ZWUgSUQsQmlsbGFibGUgUmF0ZSAocGVyIGhvdXIpLFByb2plY3QsRGF0ZSxTdGFydCBUaW1lLEVuZCBUaW1lCjEsMzAwLEdvb2dsZSwyMDE5LTA3LTAxLDA5OjAwLDE3OjAwCjIsMTAwLEZhY2Vib29rLDIwMTktMDctMDEsMTE6MDAsMTY6MDA=\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{gaqapj2}}/invoice/parse",
+					"host": [
+						"{{gaqapj2}}"
+					],
+					"path": [
+						"invoice",
+						"parse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Invoice Parsing Result by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the id field is not empty\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.id).to.exist.and.to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'companies' object is present in the response\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.companies).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gaqapj2}}/invoice/:invoice_id",
+					"host": [
+						"{{gaqapj2}}"
+					],
+					"path": [
+						"invoice",
+						":invoice_id"
+					],
+					"variable": [
+						{
+							"key": "invoice_id",
+							"value": "17605f3b-da05-4329-aac0-084b05d02807"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Company details from an Invoice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData).to.have.property('name');",
+							"    pm.expect(responseData).to.have.property('lineItems');",
+							"    pm.expect(responseData).to.have.property('totalAmount');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate that the name is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.name).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify that the 'lineItems' array is present and contains at least one element\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.lineItems).to.exist.and.to.be.an('array').and.to.have.lengthOf.at.least(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gaqapj2}}/invoice/:invoice_id/company?companyName=Google",
+					"host": [
+						"{{gaqapj2}}"
+					],
+					"path": [
+						"invoice",
+						":invoice_id",
+						"company"
+					],
+					"query": [
+						{
+							"key": "companyName",
+							"value": "Google"
+						}
+					],
+					"variable": [
+						{
+							"key": "invoice_id",
+							"value": "17605f3b-da05-4329-aac0-084b05d02807"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "gaqapj2",
+			"value": "https://csvdemomockappp.bundlewallet.com",
+			"type": "string"
+		}
+	]
+}
