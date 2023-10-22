@@ -50,6 +50,8 @@ This document outlines the process of testing the Lawyer Billing System API. The
 - **Get Invoice Parsing Result by ID Endpoint:** Always returns a success response and handles cases where the specified ID is not found.
 - **Get Company Details from an Invoice Endpoint:** Provides detailed company billing information as expected.
 
+🔗🔗🔗 Attached is a Mocha reporter to see collection runs and scripts. Doenload and extract file to be able to view report (https://drive.google.com/file/d/1uoqFUGTcPiA2lPyU9241QePyfSaQh_xs/view?usp=sharing)
+
 Overall, the API functions correctly and ensures a streamlined billing process for lawyers, simplifying the creation of invoices.
 
 🎉 API Testing Complete! 🎉
