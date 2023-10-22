@@ -1,49 +1,55 @@
 # Bundle-Wallet-API
-Documentation for the Backend API specifications to ensure that the APIs are functioning correctly and that response displays as expected.
+## Overview
+This document outlines the process of testing the Lawyer Billing System API. The API is designed to help lawyers streamline their billing process by parsing CSV files containing billing information and providing detailed invoice data. The API offers endpoints for parsing CSV files and retrieving invoice details.
 
-POST-Parse CSV file content
-{{baseUrl}}/invoice/parse
+## API Endpoints
+### 1. POST - Parse CSV file content
+- **Endpoint:** `{{baseUrl}}/invoice/parse`
+- **Description:** Allows you to parse the content of a CSV file encoded in Base64. The CSV file must adhere to the specified format.
+- **Request:**
+  - **Headers:** Content-Type (application/json)
+  - **Body:** 
+    ```json
+    { 
+      "payload": "Base64-encoded CSV content here"
+    }
+    ```
+- **Response:**
+  - This endpoint will return a success response with the parsed data in JSON format.
 
-This endpoint allows you to parse the content of the CSV file encoded in Base64. The CSV file must conform to the specified format.
+### 2. GET - Get Invoice Parsing Result by ID
+- **Endpoint:** `{{baseUrl}}/invoice/{{invoice_id}}`
+- **Description:** Retrieve the parse result for a previously parsed CSV invoice by its specified ID.
+- **Request:**
+  - **Example Request:**
+    ```bash
+    curl --location -g '{{baseUrl}}/invoice/:invoiceId'
+    ```
+- **Response:**
+  - Returns JSON data with parsed company details and an empty map when the specified ID is not found.
+    ```json
+    {
+      "companies": { "Google": 2400, "Facebook": 500 },
+      "id": ""
+    }
+    ```
 
+### 3. GET - Get Company Details from an Invoice
+- **Endpoint:** `{{baseUrl}}/invoice/{{invoice_id}}/company?companyName=Google`
+- **Description:** Get a breakdown of the employees, rates, and amounts billed by a company in an invoice result using the ID.
+- **Request:**
+  - **Example Request:**
+    ```bash
+    curl --location -g '{{baseUrl}}/invoice/{{invoice_id}}/company?companyName=Google'
+    ```
+- **Response:**
+  - Returns JSON data with detailed company billing information.
 
-HEADERS
-Content-Type
+## API Testing Results
+- **Parse CSV File Content Endpoint:** Successfully parses CSV files and provides parsed data as expected.
+- **Get Invoice Parsing Result by ID Endpoint:** Always returns a success response and handles cases where the specified ID is not found.
+- **Get Company Details from an Invoice Endpoint:** Provides detailed company billing information as expected.
 
-application/json
-Bodyraw
+Overall, the API functions correctly and ensures a streamlined billing process for lawyers, simplifying the creation of invoices.
 
-{
-    "payload": "RW1wbG95ZWUgSUQsQmlsbGFibGUgUmF0ZSAocGVyIGhvdXIpLFByb2plY3QsRGF0ZSxTdGFydCBUaW1lLEVuZCBUaW1lCjEsMzAwLEdvb2dsZSwyMDE5LTA3LTAxLDA5OjAwLDE3OjAwCjIsMTAwLEZhY2Vib29rLDIwMTktMDctMDEsMTE6MDAsMTY6MDA="
-}
-
-
-
-GET-Get Invoice Parsing Result by ID
-{{baseUrl}}/invoice/{{invoice_id}}
-
-Get the Parse Result for a previously parsed CSV invoice by specified ID. In general, this endpoint will ALWAYS return success irrespective of the ID specified. When a result with the specified ID is not found, the companies will be an empty map.
-
-Example Request
-OK
-curl
-
-curl --location -g '{{baseUrl}}/invoice/:invoiceId'
-
-200 OK
-Example Response
-
-json
-
-{
-  "companies": {
-    "Google": 2400,
-    "Facebook": 500
-  },
-  "id": "<uuid>"
-}
-
-GETGet Company details from an Invoice
-{{baseUrl}}/invoice/{{invoice_id}}/company?companyName=Google
-
-Get the breakdown of the employees, rates and amounts billed by a company in an Invoice result using the ID. This endpoint allows you to "drill-down" into the total amount charged by a company for a given invoice parsed.
+🎉 API Testing Complete! 🎉
