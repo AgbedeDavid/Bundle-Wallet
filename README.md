@@ -3,6 +3,8 @@
 This document outlines the process of testing the Lawyer Billing System API. The API is designed to help lawyers streamline their billing process by parsing CSV files containing billing information and providing detailed invoice data. The API offers endpoints for parsing CSV files and retrieving invoice details.
 
 ## API Endpoints
+- **baseUrl:** 'https://csvdemomockapp.bundlewallet.com/'
+
 ### 1. POST - Parse CSV file content
 - **Endpoint:** `{{baseUrl}}/invoice/parse`
 - **Description:** Allows you to parse the content of a CSV file encoded in Base64. The CSV file must adhere to the specified format.
